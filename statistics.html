@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>信息统计-首都地铁志愿者</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm.min.css">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm-extend.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body>
+    <!-- 页面主体 -->
+    <div class="page" id="page">
+      <header class="bar bar-nav">
+        <h1 class="title">信息统计</h1>
+      </header>
+      <!-- 页面内容区 -->
+      <div class="content">
+        <!-- 是否通过审核 （审核期间显示） 开始 -->
+        <div class="card">
+          <div class="card-content">
+            <div class="card-content-inner color-warning">
+              您的申请正在审核。
+            </div>
+          </div>
+        </div>
+        <!-- 是否通过审核 结束 -->
+        <div class="list-block">
+          <ul>
+            <li class="item-content">
+              <div class="item-inner">
+                <div class="item-title">今日上传</div>
+                <div class="item-after" v-text="tUploadNum"></div>
+              </div>
+            </li>
+            <li class="item-content">
+              <div class="item-inner">
+                <div class="item-title">本月累计</div>
+                <div class="item-after" v-text="mUploadNum"></div>
+              </div>
+            </li>
+            <li class="item-content">
+              <div class="item-inner">
+                <div class="item-title">本年累计</div>
+                <div class="item-after" v-text="yUploadNum"></div>
+              </div>
+            </li>
+            <li class="item-content">
+              <div class="item-inner">
+                <div class="item-title">总排名</div>
+                <div class="item-after" v-text="rank+'/'+total"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- 上报新信息按钮 （通过的志愿者才能上报） 开始 -->
+        <div class="content-block">
+          <div class="row">
+            <div class="col-10">&nbsp;</div>
+            <div class="col-80">
+              <input type="submit" class="button button-big button-fill button-success" @click="reportedBtn" value="上报新信息">
+            </div>
+            <div class="col-10">&nbsp;</div>
+          </div>
+        </div>
+        <!-- 上报新信息按钮 结束 -->
+      </div>
+    </div>
+    <!-- 引入脚本CDN文件 -->
+    <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://cdn.bootcss.com/vue/1.0.13/vue.min.js' charset='utf-8'></script>
+    <script type="text/javascript">
+      window.onload = function(){
+        $.init();
+
+        var page = new Vue({
+          el:"#page",
+          data:{
+            tUploadNum:1,
+            mUploadNum:53,
+            yUploadNum:203,
+            rank:103,
+            total:3596
+          },
+          methods:{
+            reportedBtn:function(){
+              $.showIndicator();
+              location.href = 'reported.html';
+              return false;
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

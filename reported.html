@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>信息上报-首都地铁志愿者</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm.min.css">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm-extend.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body>
+    <!-- 页面主体 -->
+    <div class="page" id="page">
+      <header class="bar bar-nav">
+        <h1 class="title">信息上报</h1>
+      </header>
+      <!-- 页面内容区 -->
+      <div class="content">
+        <div class="content-block">
+          <div class="list-block">
+            <ul>
+              <!-- Text inputs -->
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">事发地点</div>
+                    <div class="item-input">
+                      <select v-model="whichLine">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in whichLineList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">车站名称</div>
+                    <div class="item-input">
+                      <select v-model="stationName">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in stationNameList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">事件类型</div>
+                    <div class="item-input">
+                      <select v-model="eventTypeA">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in eventTypeAList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                      <select v-model="eventTypeB">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in eventTypeBList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">内容描述</div>
+                    <div class="item-input">
+                      <textarea placeholder="请输入文字描述信息" v-model="eventDetail"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">上传图片或视频</div>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-input" @change="">
+                      <input type="file" name="file" id="demo1" accept="image/png,image/jpeg,image/gif" capture="camera" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="item-content" v-for="item in uploadList">
+                      <div class="item-inner">
+                        <div class="col-10"></div>
+                        <div class="item-title col-70" v-text="item.picName" data-picID="{{item.uuid}}"></div>
+                        <div class="button col-20" @click="deleteImgLine($index)">删除</div>
+                      </div>
+                    </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="content-block">
+          <div class="row">
+            <div class="col-10">&nbsp;</div>
+            <div class="col-80">
+              <input type="submit" class="button button-big button-fill button-success" @click="reportedBtn" value="立即上报">
+            </div>
+            <div class="col-10">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 引入脚本CDN文件 -->
+    <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://cdn.bootcss.com/vue/1.0.13/vue.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='js/jquery.ajaxfileupload.js' charset='utf-8'></script>
+    <script type="text/javascript">
+      window.onload = function(){
+        $.init();
+        
+        var page = new Vue({
+          el:"#page",
+          data:{
+            uploadList:[],
+            whichLineList:[{
+              name:'1号线',
+              value:1
+            },{
+              name:'2号线',
+              value:2
+            }],
+            stationNameList:[{
+              name:'苹果园站',
+              value:1
+            },{
+              name:'古城站',
+              value:1
+            }],
+            eventTypeAList:[{
+              name:'信息报送',
+              value:1
+            },{
+              name:'现场服务',
+              value:2
+            }],
+            eventTypeBList:[{
+              name:'乞讨卖艺',
+              value:1
+            },{
+              name:'可疑人',
+              value:2
+            }]
+          },
+          methods:{
+            reportedBtn:function(){
+              $.showIndicator();
+              if(this.checkForm()){
+                $.toast("上报成功！");
+                location.href = 'statistics.html';
+                return false;
+              }
+
+            },
+            checkForm:function(){
+              alert( JSON.stringify(this.$data) );
+              return true;
+            },
+            deleteImgLine:function(ind){
+              $("#demo1").parent().parent().parent().show();
+              return this.uploadList.splice(ind,1);
+            }
+          }
+        });
+
+        $("#demo1").AjaxFileUpload({
+          action: "/learngit/0105/AjaxFileUpload/demos/upload.php",
+          onChange: function(filename) {
+            $.showIndicator();
+          },
+          onSubmit: function(filename) {
+            return true;
+          },
+          onComplete: function(filename, response) {
+
+            if (typeof(response.error) === "string") {
+              $.hideIndicator();
+              $.toast("添加失败！");
+              alert(response.error);
+              return;
+            }else{
+              $.hideIndicator();
+              $.toast("添加成功！");
+              page.uploadList.push({
+                picName:response.name,
+                uuid:123456
+              });
+              
+              if(page.uploadList.length >= 2){
+                $(this).parent().parent().parent().hide();
+              }
+            }
+          }
+        });
+
+      }
+    </script>
+  </body>
+</html>

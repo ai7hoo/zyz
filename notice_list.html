@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>公告信息-首都地铁志愿者</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm.min.css">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm-extend.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body><!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>公告信息-首都地铁志愿者</title>
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm.min.css">
+      <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm-extend.min.css">
+      <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+    <body>
+      <!-- 页面主体 -->
+      <div class="page" id="page">
+        <header class="bar bar-nav">
+          <h1 class="title">公告信息</h1>
+        </header>
+        <!-- 页面内容区 -->
+        <div class="content">
+          <div class="list-block media-list">
+            <ul>
+              <li v-for="item in noticeList" v-cloak>
+                <a href="#" class="item-link item-content" @click="openDetail(item.id)">
+                  <div class="item-inner">
+                    <div class="item-title-row">
+                      <div class="item-title" v-text="item.title"></div>
+                      <div class="item-after" v-text="item.time">2016-01-01 17:14</div>
+                    </div>
+                    <div class="item-text" v-text="item.description"></div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- 引入脚本CDN文件 -->
+      <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+      <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm.min.js' charset='utf-8'></script>
+      <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm-extend.min.js' charset='utf-8'></script>
+      <script type='text/javascript' src='http://cdn.bootcss.com/vue/1.0.13/vue.min.js' charset='utf-8'></script>
+      <script type="text/javascript">
+        window.onload = function(){
+          $.init();
+
+          var page = new Vue({
+            el:"#page",
+            data:{
+              noticeList:[{
+                title:'公告标题',
+                time:'2016-01-01 14：58',
+                description:'这里是公告简介...',
+                id:'21'
+              }]
+            },
+            methods:{
+              openDetail:function(id){
+                $.showIndicator();
+                location.href = 'notice_detail.html';
+                return false;
+              }
+            }
+          });
+        }
+      </script>
+    </body>
+  </html>

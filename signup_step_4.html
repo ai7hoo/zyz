@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>第四步-用户注册-首都地铁志愿者</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm.min.css">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm-extend.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body>
+    <!-- 页面主体 -->
+    <div class="page" id="page">
+      <!-- 页面内容区 -->
+      <div class="content" id="content">
+        <div class="content-block">
+          <div class="list-block">
+            <ul>
+              <!-- Text inputs -->
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="color-success label">教育&志愿者信息</div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">最高学历</div>
+                    <div class="item-input">
+                      <select v-model="education">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in educationList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">从业状况</div>
+                    <div class="item-input">
+                      <select v-model="occupation">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in occupationList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">在读学生？</div>
+                    <div class="item-input">
+                      <label class="label-switch">
+                        <input type="checkbox" v-model="isStudent">
+                        <div class="checkbox"></div>
+                      </label>
+                      <span> {{isStudent?'是':'否'}}</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">毕业学校</div>
+                    <div class="item-input">
+                      <input type="text" placeholder="请填写毕业高校学校" v-model="school" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">受邀加入？</div>
+                    <div class="item-input">
+                      <label class="label-switch">
+                        <input type="checkbox" v-model="isInvited">
+                        <div class="checkbox"></div>
+                      </label>
+                      <span> {{isInvited?'是':'否'}}</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">可服务类别（可多选）</div>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-input row">
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType1" value="1">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">赛会服务</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType2" value="2">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">应急救援</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType3" value="3">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">城市运行</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType4" value="4">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">文化教育</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType5" value="5">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">关爱服务</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType6" value="6">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">社区服务</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType7" value="7">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">绿色环保</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType8" value="8">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">医疗卫生</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType9" value="9">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">在线志愿服务</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType10" value="10">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">京外服务</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType11" value="11">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">国际服务</div>
+                          </div>
+                        </div>
+                      </label>
+                      <label class="label-checkbox item-content col-50">
+                        <input type="checkbox" name="my-checkbox" v-model="serviceType12" value="12">
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title-row">
+                            <div class="item-title">其他</div>
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">地铁线路</div>
+                    <div class="item-input" v-model="metroLine">
+                      <select>
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in metroLineList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">地铁站点</div>
+                    <div class="item-input">
+                      <select v-model="metroStation">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in metroStationList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">每月乘坐次数</div>
+                    <div class="item-input">
+                      <select v-model="MonthCount">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in MonthCountList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">同意服务协议</div>
+                    <div class="item-input">
+                      <label class="label-switch">
+                        <input type="checkbox" checked v-model="agreement">
+                        <div class="checkbox"></div>
+                      </label>
+                      <span> {{agreement?'是':'否'}} </span>
+                      <span class="color-success pull-right open-popup" @click="watchAgreement">点击查看</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="content-block">
+          <div class="row">
+            <div class="col-10">&nbsp;</div>
+            <div class="col-80">
+              <div class="button button-big button-fill button-success" @click="nextStep">申请成为实名注册志愿者</div>
+            </div>
+            <div class="col-10">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Popup 开始 -->
+    <div class="popup popup-about">
+      <div class="content-block">
+        <p><a href="#" class="close-popup pull-right">关闭</a></p>
+        <p>
+          <h4 class="header">注册服务协议</h4>
+        </p>
+        <p>
+          <div>
+            　　本网站及与本网站链接的网站，仅提供志愿者、志愿服务团体、志愿服务机构及其它与此相关联之志愿服务项目。志愿者、志愿服务团体、志愿服务机构以及因 其它任何目的进入本网站的访问者接受本协议书条款，注册成为首都地铁志愿者网站会员，并遵守本协议所述之条款使用本网站所提供之服务。如果您不接受本声明之条 款，请勿使用本网站。接受本声明之条款，您将遵守本协议之规定。
+            <br>
+            <br>1.信息的发布
+            <br>
+            <br>·不得发布任何违反有关法律规定信息；
+            <br>·不得发布任何与本网站志愿服务目的不适之信息；
+            <br>·不得发布任何不完整、虚假的信息；
+            <br>·用户对所发布的信息承担完全责任。
+            <br>
+            <br>2.信息的使用
+            <br>
+            <br>·志愿服务团体、志愿服务机构仅可就志愿服务目的使用志愿者之个人信息；
+            <br>·志愿者仅可因参加某志愿服务项目，使用志愿服务团体、志愿服务机构发布之项目招募信息；
+            <br>·本网站提供的其它信息，仅与其相应内容有关的目的而被使用；
+            <br>·不得将任何本网站的信息用作任何商业目的。
+            <br>
+            <br>3.信息的公开
+            <br>
+            <br>在本网站所登录的任何信息，均有可能被任何本网站的访问者浏览，也可能被错误使用。本网站对此将不予承担任何责任。
+            <br>
+            <br>4.信息的准确性
+            <br>
+            <br>任何在本网站发布的信息，均必须符合合法、准确、及时、完整的原则。但本网站将不能保证所有由第三方提供的信息，或本网站自行采集的信息完全准确。使用 者了解，对这些信息的使用，需要经过进一步核实。本网站对访问者未经自行核实误用本网站信息造成的任何损失不予承担任何责任。
+            <br>
+            <br>5.信息更改与删除
+            <br>
+            <br>除了信息的发布者外，任何访问者不得更改或删除他人发布的任何信息。本网站有权根据其判断保留修改或删除任何不适信息之权利。
+            <br>
+            <br>6.版权、商标权
+            <br>
+            <br>本网站的图形、图像、文字及其程序等均属首都地铁志愿者网站之版权，受商标法及相关知识产权法律保护，未经首都地铁志愿者网站书面许可，任何人不得下载、复制、再使用。在本网发布信息之商标，归其相应的商标所有权人，受商标法保护。
+            <br>
+            <br>7、注册信息使用
+            <br>
+            <br>注册会员所提供的个人信息将会被首都地铁志愿者网站统计、汇总，在我们的严格管理下，为首都地铁志愿者网站的合作者提供依据。首都地铁志愿者网站会不定期地通过注册会员留下的电子邮件、电话或通信地址同该会员保持联系。
+            <br>
+            <br>首都地铁志愿者网站承诺：在未经访问者授权同意的情况下，首都地铁志愿者网站不会将访问者的个人资料泄露给第三方。但以下情况除外。
+            <br>·根据执法单位之要求或为公共之目的向相关单位提供个人资料；
+            <br>·由于您将用户密码告知他人或与他人共享注册帐户，由此导致的任何个人资料泄露；
+            <br>·由于计算机2000年问题、黑客攻击、计算机病毒侵入或发作、因政府管制而造成的暂时性关闭等影响网络正常经营之不可抗力而造成的个人资料泄露、丢失、被盗用或被窜改等；
+            <br>·由于与首都地铁志愿者网站链接的其它网站所造成之个人资料泄露及由此而导致的任何法律争议和后果；
+            <br>·为免除访问者在生命、身体或财产方面之急迫危险。
+            <br>
+            <br>8.自责
+            <br>
+            <br>所有使用本网站的用户，对使用本网站信息和在本网站发布信息的被使用，承担完全责任。本网站对任何因使用本网站而产生的第三方之间的纠纷，不负任何责任。
+            <br>
+            <br>9.服务终止
+            <br>
+            <br>本网站有权在预先通知或不予通知的情况下终止任何免费服务。
+            <br>
+            <br>10.争议处理
+            <br>
+            <br>本网站因正常的系统维护、系统升级，或者因网络拥塞而导致网站不能访问，本网站不承担任何责任。
+            <br>
+            <br>11.免责条款
+            <br>
+            <br>本网并无随时监视此网址，但保留对其实施实时监视的权利。对于他方输入的，不是本网发布的材料，本网概不负任何法律责任。对于其他网址链接在本网址的内容，本网概不负法律责任。
+          </div>
+        </p>
+      </div>
+    </div>
+    <!-- Popup 结束 -->
+    <!-- 引入脚本CDN文件 -->
+    <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://cdn.bootcss.com/vue/1.0.13/vue.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="http://g.alicdn.com/msui/sm/0.5.9/js/sm-city-picker.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      window.onload = function(){
+        $.init();
+
+        //城市选择器
+        $("#city-picker").cityPicker({
+          toolbarTemplate: '<header class="bar bar-nav">\
+          <button class="button button-link pull-right close-picker">确定</button>\
+          <h1 class="title">籍贯</h1>\
+          </header>'
+        });
+
+        //区域选择器
+        $("#picker-name").cityPicker({
+          toolbarTemplate: '<header class="bar bar-nav">\
+          <button class="button button-link pull-right close-picker">确定</button>\
+          <h1 class="title">选择区域</h1>\
+          </header>'
+        });
+
+        var page = new Vue({
+          el:"#page",
+          data:{
+            educationList:[{
+              name:'博士研究生',
+              value:0
+            },{
+              name:'大学本科',
+              value:2
+            }],
+            occupationList:[{
+              name:'国家公务员（含参照、依照公务员管理）',
+              value:0
+            },{
+              name:'专业技术人员',
+              value:1
+            },{
+              name:'职员',
+              value:2
+            }],
+            metroLineList:[{
+              name:'1号线',
+              value:1
+            },{
+              name:'2号线',
+              value:2
+            }],
+            metroStationList:[{
+              name:'苹果园站',
+              value:0
+            },{
+              name:'古城站',
+              value:1
+            }],
+            MonthCountList:[{
+              name:'10次以下',
+              value:0
+            },{
+              name:'10-20次',
+              value:1
+            },{
+              name:'20次以上',
+              value:3
+            }]
+          },
+          methods:{
+            nextStep:function(){
+              $.showIndicator();
+              if(this.checkForm()){
+                location.href = 'statistics.html';
+              }
+            },
+            checkForm:function(){
+              alert( JSON.stringify(this.$data) );
+              return true;
+            },
+            watchAgreement:function(){
+
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

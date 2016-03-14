@@ -1,0 +1,13 @@
+.hidden {
+  display: none;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.uploadInput {
+  margin-bottom: .2rem;
+}
+
+/*# sourceMappingURL=style.css.map */

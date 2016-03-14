@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>第二步-用户注册-首都地铁志愿者</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm.min.css">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.5.9/css/sm-extend.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body>
+    <!-- 页面主体 -->
+    <div class="page" id="page">
+      <!-- 页面内容区 -->
+      <div class="content" id="content">
+        <div class="content-block">
+          <div class="list-block">
+            <ul>
+              <!-- Text inputs -->
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="color-success label">基本信息</div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">真实姓名</div>
+                    <div class="item-input">
+                      <input type="text" placeholder="与证件上的要一致" v-model="realName">
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">性别</div>
+                    <div class="item-input">
+                      <select v-model="gender">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in genderList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">出生日期</div>
+                    <div class="item-input">
+                      <input type="text" data-toggle="date" placeholder="请选择出生日期" v-model="birthDay" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">国籍</div>
+                    <div class="item-input">
+                      <select v-model="nationality">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in nationalityList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">籍贯</div>
+                    <div class="item-input">
+                      <input type="text" id='city-picker' placeholder="请选择籍贯" v-model="birthPlace" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">证件类型</div>
+                    <div class="item-input">
+                      <select v-model="IDType">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in IDTypeList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">证件号码</div>
+                    <div class="item-input">
+                      <input type="text" placeholder="请输入证件号码" v-model="IDCode" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">政治面貌</div>
+                    <div class="item-input">
+                      <select v-model="politicalStatus">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in politicalStatusList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">民族</div>
+                    <div class="item-input">
+                      <select v-model="nation">
+                        <option selected>请选择 ...</option>
+                        <option v-for="item in nationList" value="{{item.value}}"  v-text="item.name"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="content-block">
+          <div class="row">
+            <div class="col-10">&nbsp;</div>
+            <div class="col-80">
+              <div class="button button-big button-fill button-success" @click="nextStep">下一步</div>
+            </div>
+            <div class="col-10">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 引入脚本CDN文件 -->
+    <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.5.9/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://cdn.bootcss.com/vue/1.0.13/vue.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="http://g.alicdn.com/msui/sm/0.5.9/js/sm-city-picker.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      window.onload = function(){
+        $.init();
+
+        //城市选择器
+        $("#city-picker").cityPicker({
+          toolbarTemplate: '<header class="bar bar-nav">\
+          <button class="button button-link pull-right close-picker">确定</button>\
+          <h1 class="title">籍贯</h1>\
+          </header>'
+        });
+
+        //区域选择器
+        $("#picker-name").cityPicker({
+          toolbarTemplate: '<header class="bar bar-nav">\
+          <button class="button button-link pull-right close-picker">确定</button>\
+          <h1 class="title">选择区域</h1>\
+          </header>'
+        });
+
+        var page = new Vue({
+          el:"#page",
+          data:{
+            genderList:[{
+                name:'男',
+                value:1
+            },{
+                name:'女',
+                value:0
+            }],
+            nationalityList:[{
+                name:'中国',
+                value:1,
+            },{
+                name:'中国香港',
+                value:2,
+            },{
+                name:'中国澳门',
+                value:3,
+            },{
+                name:'中国台湾',
+                value:4,
+            },{
+                name:'美国',
+                value:5,
+            }],
+            IDTypeList:[{
+                name:'内地居民身份证',
+                value:0
+            },{
+                name:'护照',
+                value:1
+            }],
+            politicalStatusList:[{
+                name:'中国共产党党员',
+                value:0
+            },{
+                name:'群众',
+                value:1
+            }],
+            nationList:[{
+                name:'汉族',
+                value:0
+            },{
+                name:'蒙古族',
+                value:1
+            }]
+          },
+          methods:{
+            nextStep:function(){
+              $.showIndicator();
+              if(this.checkForm()){
+                location.href = 'signup_step_3.html';
+              }
+            },
+            checkForm:function(){
+              alert( JSON.stringify(this.$data) );
+              return true;
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
